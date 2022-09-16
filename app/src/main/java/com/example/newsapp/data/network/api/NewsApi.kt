@@ -16,8 +16,17 @@ interface NewsApi {
         @Query(QUERY_PARAM_PAGE_SIZE) pageSize: Int,
     ): NewsResponseDto
 
+    @Headers("Authorization: $API_KEY")
+    @GET("v2/everything")
+    suspend fun searchNews(
+        @Query(QUERY_PARAM_QUERY) query: String,
+        @Query(QUERY_PARAM_PAGE) page: Int,
+        @Query(QUERY_PARAM_PAGE_SIZE) pageSize: Int,
+    ): NewsResponseDto
+
     companion object {
         private const val QUERY_PARAM_COUNTRY = "country"
+        private const val QUERY_PARAM_QUERY = "q"
         private const val QUERY_PARAM_PAGE = "page"
         private const val QUERY_PARAM_PAGE_SIZE = "pageSize"
 

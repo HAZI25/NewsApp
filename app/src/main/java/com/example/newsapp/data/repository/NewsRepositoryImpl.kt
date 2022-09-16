@@ -7,6 +7,7 @@ import androidx.paging.map
 import com.example.newsapp.data.network.api.NewsApi
 import com.example.newsapp.data.network.model.mapToDomain
 import com.example.newsapp.data.network.paging.BrakingNewsPagingSource
+import com.example.newsapp.data.network.paging.SearchNewsPagingSource
 import com.example.newsapp.domain.model.Article
 import com.example.newsapp.domain.repository.NewsRepository
 import kotlinx.coroutines.flow.Flow
@@ -28,6 +29,23 @@ class NewsRepositoryImpl @Inject constructor(
             }
         ).flow.map { pagingArticleDtoData ->
             pagingArticleDtoData.map { articleDto ->
+                articleDto.mapToDomain()
+            }
+        }
+    }
+
+    override fun searchNews(query: String): Flow<PagingData<Article>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 10,
+                maxSize = 30,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = {
+                SearchNewsPagingSource(newsApi, query)
+            }
+        ).flow.map { pagingData ->
+            pagingData.map { articleDto ->
                 articleDto.mapToDomain()
             }
         }

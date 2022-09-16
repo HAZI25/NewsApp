@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.example.newsapp.NewsApp
 import com.example.newsapp.databinding.FragmentBreakingNewsBinding
@@ -80,6 +81,8 @@ class BreakingNewsFragment : Fragment(), NewsAdapter.OnItemClickListener {
     }
 
     override fun onItemClick(article: Article) {
-        //TODO()
+        val action =
+            BreakingNewsFragmentDirections.actionBreakingNewsFragmentToArticleFragment(article)
+        findNavController().navigate(action)
     }
 }
