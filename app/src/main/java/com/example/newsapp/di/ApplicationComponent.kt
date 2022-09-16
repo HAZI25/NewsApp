@@ -1,8 +1,9 @@
 package com.example.newsapp.di
 
-import android.app.Application
+import com.example.newsapp.presentation.ArticleFragment
 import com.example.newsapp.presentation.breaking_news.BreakingNewsFragment
-import dagger.BindsInstance
+import com.example.newsapp.presentation.favourite_news.FavouriteNewsFragment
+import com.example.newsapp.presentation.search_news.SearchNewsFragment
 import dagger.Component
 
 @ApplicationScope
@@ -10,4 +11,7 @@ import dagger.Component
 interface ApplicationComponent {
 
     fun inject(fragment: BreakingNewsFragment)
+    fun inject(fragment: SearchNewsFragment)
+    fun inject(fragment: ArticleFragment)
+    fun inject(fragment: FavouriteNewsFragment)
 }
