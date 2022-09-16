@@ -42,6 +42,14 @@ class ArticleFragment : Fragment() {
 
         setupWebView()
         setupViewModel()
+        setupFabClickListener()
+    }
+
+    private fun setupFabClickListener() {
+        binding.fab.setOnClickListener {
+            viewModel.saveArticle(args.article)
+            Snackbar.make(requireView(), "Article saved successfully", Snackbar.LENGTH_SHORT).show()
+        }
     }
 
     private fun setupViewModel() {

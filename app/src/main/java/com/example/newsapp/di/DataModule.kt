@@ -1,6 +1,9 @@
 package com.example.newsapp.di
 
+import android.app.Application
 import com.example.newsapp.common.Constants.BASE_URL
+import com.example.newsapp.data.database.ArticleDatabase
+import com.example.newsapp.data.database.NewsDao
 import com.example.newsapp.data.network.api.NewsApi
 import com.example.newsapp.data.repository.NewsRepositoryImpl
 import com.example.newsapp.domain.repository.NewsRepository
@@ -32,6 +35,12 @@ interface DataModule {
         @ApplicationScope
         fun provideNewsApi(retrofit: Retrofit): NewsApi {
             return retrofit.create(NewsApi::class.java)
+        }
+
+        @Provides
+        @ApplicationScope
+        fun provideDao(application: Application): NewsDao {
+            return ArticleDatabase.getInstance(application).newsDao()
         }
     }
 }

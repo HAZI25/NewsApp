@@ -25,3 +25,24 @@ fun SourceDomain.mapToPresentation(): SourcePresentation {
         name = name
     )
 }
+
+fun ArticlePresentation.mapToDomain(): ArticleDomain {
+    return ArticleDomain(
+        id = id,
+        author = author,
+        content = content,
+        description = description,
+        publishedAt = publishedAt,
+        source = source.mapToDomain(),
+        title = title,
+        url = url,
+        urlToImage = urlToImage
+    )
+}
+
+private fun SourcePresentation.mapToDomain(): SourceDomain {
+    return SourceDomain(
+        id = id,
+        name = name
+    )
+}

@@ -6,6 +6,6 @@ import com.example.newsapp.di.DaggerApplicationComponent
 
 class NewsApp : Application() {
     val component: ApplicationComponent by lazy {
-        DaggerApplicationComponent.create()
+        DaggerApplicationComponent.factory().create(this)
     }
 }

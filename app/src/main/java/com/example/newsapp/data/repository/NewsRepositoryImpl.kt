@@ -4,6 +4,9 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
+import com.example.newsapp.data.database.NewsDao
+import com.example.newsapp.data.database.model.mapToDbModel
+import com.example.newsapp.data.database.model.mapToDomain
 import com.example.newsapp.data.network.api.NewsApi
 import com.example.newsapp.data.network.model.mapToDomain
 import com.example.newsapp.data.network.paging.BrakingNewsPagingSource
@@ -16,6 +19,7 @@ import javax.inject.Inject
 
 class NewsRepositoryImpl @Inject constructor(
     private val newsApi: NewsApi,
+    private val dao: NewsDao,
 ) : NewsRepository {
     override fun getBreakingNews(): Flow<PagingData<Article>> {
         return Pager(
@@ -49,5 +53,21 @@ class NewsRepositoryImpl @Inject constructor(
                 articleDto.mapToDomain()
             }
         }
+    }
+
+    override fun getSavedNews(): Flow<List<Article>> {
+        return dao.getAllArticles().map { listArticles ->
+            listArticles.map { articleDbModel ->
+                articleDbModel.mapToDomain()
+            }
+        }
+    }
+
+    override suspend fun insertUpdateArticle(article: Article) {
+        dao.insertUpdateArticle(article.mapToDbModel())
+    }
+
+    override suspend fun deleteArticle(article: Article) {
+        dao.deleteArticle(article.mapToDbModel())
     }
 }

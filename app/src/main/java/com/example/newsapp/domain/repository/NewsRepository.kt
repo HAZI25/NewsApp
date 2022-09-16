@@ -9,4 +9,10 @@ interface NewsRepository {
     fun getBreakingNews(): Flow<PagingData<Article>>
 
     fun searchNews(query: String): Flow<PagingData<Article>>
+
+    fun getSavedNews(): Flow<List<Article>>
+
+    suspend fun insertUpdateArticle(article: Article)
+
+    suspend fun deleteArticle(article: Article)
 }
