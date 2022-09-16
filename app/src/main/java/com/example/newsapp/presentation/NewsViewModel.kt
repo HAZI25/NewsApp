@@ -11,8 +11,9 @@ import com.example.newsapp.presentation.model.Article
 import com.example.newsapp.presentation.model.mapToPresentation
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class NewsViewModel(
+class NewsViewModel @Inject constructor(
     private val getBreakingNewsUseCase: GetBreakingNewsUseCase,
 ) : ViewModel() {
 
